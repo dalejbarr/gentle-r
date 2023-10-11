@@ -1,0 +1,11 @@
+---
+title: "Stats canon"
+format: 
+  revealjs:
+    code-line-numbers: false
+    df-print: tibble
+execute:
+  echo: true
+---
+
+## nothing here yet!

@@ -1,0 +1,44 @@
+---
+title: "Stats canon"
+format: 
+  revealjs:
+    code-line-numbers: false
+    df-print: kable
+execute:
+  echo: true
+---
+
+## recommended fns for inferential stats
+
+```{r}
+#| echo: false
+
+library("tibble")
+
+tribble(~ `package::function`, ~ description,
+        "`t.test()`", "t-test",
+        "`ez::ezAnova()`", "Analysis of variance",
+        "`corrr::correlation()`", "correlation matrices",
+        "`cor.test()`", "inference on correlations",
+        "`lm()`", "simple/multiple regression",
+        "`glm()`", "generalized linear models")
+```
+
+::: {.callout-warning}
+`anova()` doesn't do ANOVA, really...
+:::
+
+## other packages worth knowing about
+
+```{r}
+#| echo: false
+
+tribble( ~ package, ~ description,
+        "`psych`", "psychometrics",
+        "`lavaan`", "structural equation models",
+        "`lme4`", "linear mixed-effects models",
+        "`afex`", "anovas for multilevel data",
+        "`pwr`", "power calculations")
+```
+
+# walkthrough

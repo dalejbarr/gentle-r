@@ -1,0 +1,37 @@
+---
+title: "A gentle introduction to R and RStudio"
+author: "Dale Barr"
+date: "October 11, 2023"
+format: html
+---
+
+# Slides
+
+- [Part 1: The R ecosystem / data wrangling & data viz](01_r-ecosystem/index.html)
+- [Part 2: Worked example and the statistics 'canon'](02_stats-canon/index.html)
+
+# Datasets and walkthroughs
+
+## statistics anxiety and performance
+
+- walkthrough covers data wrangling, data visualisation, correlation, multiple regression
+
+- [`stars-stubfile.Rmd`](stars-stubfile.Rmd){target="download"}: RMarkdown file with code
+- [`stars.zip`](stars.zip){target="download"}: ZIP archive file with the raw data.
+- [`stars-walkthrough.Rmd`](stars-walkthrough.Rmd){target="download"}: RMarkdown file with code
+
+# Learning more
+
+## Online textbooks
+
+Huge amount of resources at <https://psyteachr.github.io>.
+
+- Data wrangling, visualization, and reports: [Applied Data Skills](https://psyteachr.github.io/ads-v2) microcredential course by Emily Nordmann & Lisa DeBruine
+- [Level 1 ("Data Skills")](https://psyteachr.github.io/data-skills/) and [Level 2 ("Analysis")](https://psyteachr.github.io/analysis/) undergrad courses by Heather Woods, Emily Nordmann, Phil McAleer, Helena Paterson, Carolina Kuepper-Tetzel
+- [Statistical modelling (Level 3) course](https://psyteachr.github.io/stat-models/) by Dale Barr
+
+## Papers
+
+- Nordmann, McAleer, Toivo, Paterson, DeBruine (2022). [Data Visualization using R for researchers who do not use R](https://journals.sagepub.com/doi/10.1177/25152459221074654).
+
+- McAleer, et al. (submitted). [Embedding data skills in research methods education: Preparing students for reproducible research](https://psyarxiv.com/hq68s).

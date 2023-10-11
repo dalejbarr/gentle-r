@@ -1,0 +1,117 @@
+---
+title: "Multiple Regression Formative Exercise"
+author: "L3 Teaching Team"
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Background
+
+For this set of formative exercises, you're going to be working with some real data collected about students from a previous year of students in statistics at the University of Glasgow. The data have been anonymized, and includes no demographic or other sensitive information. Each student is identified by a unique value of the variable `id`.
+
+Students were given the STats Anxiety Rating Scale (STARS), a 51-item questionnaire which measures student's attitudes toward statistics (Cruise, Cash, & Bolton, 1985).  In each item, students are asked to rate either agreement with a statement on a 1 to 5 scale (1 = strongly disagree, 5 = strongly agree), or rate how anxious they would feel on a 1 to 5 scale (1 = no anxiety, 5 = strong anxiety). Higher numbers mean more anxiety or more negative attitudes toward statistics.  
+
+There are some additional files that you'll need to download in order to do the task.
+
+If you're interested, you can see the individual survey items in the accompanying file `stars-items.pdf`. 
+
+The rating data is in the file `stars.csv`. 
+
+The STARS items can be divided up into six different subscales (Hanna, Shevlin, & Dempster, 2008). The subscales and the mapping of items to subscales is given in the file `subscales.csv`.
+
+Students in this course were allowed to freely choose what software they used to perform the class assignments, either SPSS or R. The file `software.csv` has information about which software each student chose.
+
+Your task is to use multiple regression examine the relationship between the stats anxiety subscales and overall performance in the class, as measured by the students' final grades, which are in the file `grades.csv`.
+
+# Tasks
+
+Write solution code in the chunks provided for each task.
+
+## Task 1: Import the data
+
+You will need to use the **`tidyverse`** package as well as the **`corrr`** package. Load in those packages as well as `stars.csv`, `grades.csv`, `software.csv`, and `subscales.csv`. You might want to look at the [Data Import Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf){target="_blank"}.
+
+```{r data-import, message = FALSE}
+## TODO: your code here
+```
+
+
+## Task 2: Calculate subscale means
+
+Calculate the mean score for each subscale for each student.
+
+```{r subscale-means}
+## TODO: your code here
+```
+
+
+## Task 3: Create a correlation matrix
+
+Create a correlation matrix using `corrr::correlate()` showing the bivariate correlation between your response variable (`grade`) and the six subscale means.
+
+```{r corr-mx}
+## TODO: your code here
+```
+
+
+## Task 4: Visualize all pairwise correlations
+
+Now visualize all of the pairwise correlations.
+
+```{r pairs, fig.width = 6, fig.height = 6}
+## TODO: your code here
+```
+
+
+## Task 5: Run the multiple regression
+
+Estimate the parameters for the multiple regression, with grade as the response variable and the subscale means as the predictors. This should be straightforward if your data are in the right format. Don't forget to display your results using `summary()`, and take a moment to think about what all the numbers mean.
+
+```{r fit-model}
+## TODO: your code here
+```
+
+
+## Task 6: Which subscale is the 'best' predictor?
+
+Is there one subscale that is more strongly linked to the final grade? The different subscales have different variances, so you need to re-run the regression after standardizing the variables.
+
+```{r best-predictor}
+## TODO: your code here
+```
+
+
+## Task 7: Compare models
+
+Could we do just as well predicting grades from the 'best' predictor as we could by including all six subscale predictors? Do an analysis to test this.
+
+```{r compare-models}
+## TODO: your code here
+```
+
+
+## Task 8: Choice of software and grade
+
+Run a simple regression that predicts grades by choice of software (SPSS versus R).
+
+```{r grade-by-software}
+## TODO: your code here
+```
+
+## Extra Task (optional): Visualize the subscale means
+
+Use ggplot to create an informative graph of the subscale means.
+
+```{r subscale-plot}
+## TODO: your code here
+```
+
+
+# References
+
+Cruise, R. J., Cash, R. W., & Bolton, D. L. (1985). Development and validation of an  instrument to measure statistical anxiety. *Paper presented at the proceedings of the American Statistical Association.*
+
+Hanna, D., Shevlin, M., & Dempster, M. (2008). The structure of the statistics anxiety rating scale: A confirmatory factor analysis using UK psychology students. *Personality and Individual Differences*, *45*, 68-74.

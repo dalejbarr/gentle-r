@@ -1,0 +1,270 @@
+---
+title: "Introduction to the R ecosystem"
+format: 
+  revealjs:
+    code-line-numbers: false
+    df-print: tibble
+execute:
+  echo: true
+---
+
+```{r setup}
+#| include: false
+## TODO setup code here
+library("tidyverse")
+```
+
+## {.smaller}
+
+:::: {.columns}
+
+::: {.column width="33%" .fragment}
+![](img/Rlogo.png){fig-align="center"}
+
+- language and environment for statistical computing
+- <https://r-project.org>
+- 1.0.0 February 2000
+- 4.3.1 June 2023
+:::
+
+
+::: {.column width="33%" .fragment}
+![](img/rstudio.png){fig-align="center"}
+
+- integrated development environment (IDE) for creating things in R
+- <https://posit.co/products/open-source/rstudio/>
+- Beta February 2011
+- 2023.06.1 June 2023
+:::
+
+::: {.column width="33%" .fragment}
+![](img/tidyverse-logo.png){fig-align="center"}
+
+- collection of add-on packages sharing a philosophy of "tidy data"
+- <https://tidyverse.org>
+- 1.0.0 September 2016
+- 2.0.0 February 2023
+:::
+
+::::
+
+## {.smaller}
+
+:::: {.columns}
+
+::: {.column width="33%" .fragment}
+![](img/rmarkdown.png){fig-align="center"}
+
+- a markdown language for creating reproducible reports, slides, and websites
+- export to HTML, PDF, LaTeX, ePub, MS Word
+
+- early 2014-present
+:::
+
+::: {.column width="33%" .fragment}
+![](img/quarto.png){fig-align="center"}
+
+- "an open-source scientific and technical publishing system" that supports multiple languages (R, Python, Julia, Observable JS) and compilation engines (Jupyter, knitr)
+- supercedes R Markdown
+
+- <https://quarto.org>
+
+- introduced in 2021/2?
+:::
+
+::: {.column width="33%" .fragment}
+![](img/shiny.png){fig-align="center"}
+
+- platform for creating interactive web applications
+- <https://shiny.posit.co/>
+:::
+
+::::
+
+
+# Working in base R
+
+## Interactive vs batch mode
+
+Can type into the console, or create an R script using a text editor (or IDE) and then run it.
+
+## Creating and naming variables
+
+Use the `<-` assignment operator to create a variable.
+
+```{r}
+x <- 5
+```
+
+::: {.callout-warning}
+There are rules. Avoid special characters beyond `_` and `.` (full stop). Capitalization matters!
+
+:::: {.columns}
+
+::: {.column width=50%}
+**Illegal names**
+
+- `hi There`
+- `123variable`
+:::
+
+::: {.column width=50%}
+**Legal names**
+
+- `hiThere`, `hi_There`, `hi.There`
+- `variable123`
+:::
+
+::::
+
+:::
+
+
+## Types of data
+
+- character: `"hello"` `"a"` `"123"`
+- numeric
+  - integer: `0L`, `1L`, `123L`, `-5`
+  - double:  `0.3L`, `9999.9`, `-0.00005`
+- boolean: `TRUE` or `FALSE`
+
+## Types of data 'containers'
+
+- `vector`: all elements must be of same type
+  - concatenate elements using `c()`
+  - elements can be named or identified by number
+- `matrix`: vector in multiple dimensions
+- `list`: elements can be of different types / lengths
+  - `data.frame`: list of lists where elements have same lengths
+
+## Vectorized operations
+
+Whereas other languages use `for` loops to repeat operations multiple times, R prefers **vectorized operations**.
+
+```{r}
+## z-scoring a variable; subtract mean and divide by standard deviation
+rt <- c(475, 637, 500, 901, 811, 766)
+
+mean(rt)
+sd(rt)
+
+rt - mean(rt)
+(rt - mean(rt)) / sd(rt)
+```
+
+## Calling functions
+
+Get information about a function's argument by typing `?functionname` in the console.
+
+Let's look at `rnorm()`.
+
+Can specify function arguments by:
+
+- position
+- name
+
+## Add-on packages {.smaller}
+
+::: {.callout-note}
+You only **install** a package once, using `install.packages()`. You load its functionality into your script using the `library()` function. **NEVER** put `install.packages()` into your R script!
+:::
+
+The R foundation maintains a curated collection of packages (that have to pass a set of strict tests) on the Comprehensive R Archive Network (CRAN). These can be downloaded and installed with `install.packages()`.
+
+Other 'unofficial' packages are also often available on developer github pages, and can be installed with `remotes::install_github("devname/packagename)`.
+
+## keeping up to date
+
+- make sure you are using version 4+ of R
+
+- `update.packages()`
+
+- `tidyverse::tidyverse_update()`
+
+# Wrangling data
+
+## `dplyr` single-table verbs
+
+::: {.aside}
+we call them "The Wickham Six" in honor of Hadley Wickham
+:::
+
+```{r}
+#| echo: false
+tribble(~ `function`, ~ description,
+        "`select()`", "choose columns to include/exclude",
+        "`filter()`", "specify criteria for including/excluding rows",
+        "`mutate()`", "add new variables",
+        "`arrange()`", "sort the rows",
+        "`group_by()`", "change unit of analysis",
+        "`summarise()`", "calculate aggregate statistics") |> knitr::kable()
+```
+
+## other useful one-table verbs
+
+```{r}
+#| echo: false
+tribble(~ `function`, ~ description,
+        "`count()`", "count unique combinations of variable values",
+        "`distinct()`", "enumerate unique combinations of variable values",
+        "`nrow()`", "number of rows in the table") |> knitr::kable()
+```
+
+## chaining operations using pipes
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Without pipes**
+
+```{r}
+sw1 <- count(starwars, hair_color)
+sw2 <- arrange(sw1, desc(n))
+sw2
+```
+:::
+
+::: {.column width="50%"}
+**Piped version**
+
+```{r}
+starwars |>
+  count(hair_color) |>
+  arrange(desc(n))
+```
+:::
+
+::::
+
+## `dplyr`joins
+
+*Mutating joins* allow you to 'copy' variables from one table onto another.
+
+- `inner_join()`, `full_join()`, `left_join()`, `right_join()`
+
+*Filtering joins* allow you to 'filter' (include/exclude rows) from one table based on the contents of another.
+
+- `semi_join()`, `anti_join()`
+
+::: {.aside}
+see `dplyr`'s built-in `band_members` and `band_instruments` toy datasets
+:::
+
+## reshaping data with `tidyr`
+
+- convert data from wide to long with `pivot_longer()`
+- or from long to wide with `pivot_wider()`
+
+# Plotting data
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**base R**
+:::
+
+::: {.column width="50%"}
+**ggplot2**
+:::
+
+::::
